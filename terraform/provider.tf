@@ -1,21 +1,18 @@
-provider "namep" {
-  default_location = var.location
-  extra_tokens = {
-    env = var.environment
-  }
-  # Using the default formatting #{SLUG}#{SHORT_LOC}#{NAME} for most resources, but its confusing for RGs
-  resource_formats = {
-    azurerm_resource_group = "#{SLUG}-#{SHORT_LOC}-#{ENV}-#{NAME}"
-  }
-}
-
 provider "azapi" {
+  client_id       = var.aad_app_id
+  client_secret   = var.aad_client_secret
+  subscription_id = var.azure_subscription_id
+  tenant_id       = var.azure_tenant_id
 }
 
 provider "azurerm" {
-  features {   
+  features {
     resource_group {
       prevent_deletion_if_contains_resources = false
-    } 
+    }
   }
+  client_id       = var.aad_app_id
+  client_secret   = var.aad_client_secret
+  subscription_id = var.azure_subscription_id
+  tenant_id       = var.azure_tenant_id
 }
